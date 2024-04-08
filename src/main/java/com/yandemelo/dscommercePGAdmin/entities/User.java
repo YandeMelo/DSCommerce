@@ -40,7 +40,6 @@ public class User implements UserDetails{
     public User() {
     }
 
-
     public User(String name, String email, String phone, LocalDate birthDate, String password, UserRole role) {
         this.name = name;
         this.email = email;
@@ -49,7 +48,6 @@ public class User implements UserDetails{
         this.password = password;
         this.role = role;
     }
-
 
     public User(Long id, String name, String email, String phone, LocalDate birthDate, String password, UserRole role, List<Order> orders) {
         this.id = id;
@@ -61,8 +59,6 @@ public class User implements UserDetails{
         this.role = role;
         this.orders = orders;
     }
-
-    
 
     public Long getId() {
         return this.id;
@@ -145,7 +141,9 @@ public class User implements UserDetails{
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if (this.role == UserRole.ADMIN) {
             return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_OPERATOR"), new SimpleGrantedAuthority("ROLE_CLIENT"));
-        } else {
+        } else if (this.role == UserRole.OPERATOR) {
+            return List.of(new SimpleGrantedAuthority("ROLE_OPERATOR"));
+        }else{
             return List.of(new SimpleGrantedAuthority("ROLE_CLIENT"));
         }
     }
