@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.yandemelo.dscommercePGAdmin.dto.CategoryDTO;
 import com.yandemelo.dscommercePGAdmin.dto.ProductDTO;
 import com.yandemelo.dscommercePGAdmin.dto.ProductMinDTO;
+import com.yandemelo.dscommercePGAdmin.entities.Category;
 import com.yandemelo.dscommercePGAdmin.entities.Product;
 import com.yandemelo.dscommercePGAdmin.repositories.ProductRepository;
 import com.yandemelo.dscommercePGAdmin.services.exceptions.DatabaseException;
@@ -25,16 +27,16 @@ public class ProductService {
 
     //GET
     @Transactional(readOnly = true)
-    public ProductMinDTO findById(Long id) {
+    public ProductDTO findById(Long id) {
         Product product = repository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Recurso não encontrado."));
-        return new ProductMinDTO(product);
+        return new ProductDTO(product);
     }
 
     //GET
     @Transactional(readOnly = true)
-    public Page<ProductDTO> findAll(String name, Pageable pageable) {
+    public Page<ProductMinDTO> findAll(String name, Pageable pageable) {
         Page<Product> result = repository.searchByName(name, pageable);
-        return result.map(x -> new ProductDTO(x));
+        return result.map(x -> new ProductMinDTO(x));
     }
 
     //POST
@@ -77,6 +79,14 @@ public class ProductService {
         entity.setDescription(dto.getDescription());
         entity.setPrice(dto.getPrice());
         entity.setImgUrl(dto.getImgUrl());
+
+        // Limpar a lista de Categorias e adicionar as categorias da nova lista (no caso do PUT)
+        entity.getCategories().clear();
+        for (CategoryDTO catDTO : dto.getCategories()) {
+            Category cat = new Category();
+            cat.setId(catDTO.getId());
+            entity.getCategories().add(cat);
+        }
     }
     
 }

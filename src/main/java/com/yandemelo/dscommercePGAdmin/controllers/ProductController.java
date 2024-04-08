@@ -31,14 +31,14 @@ public class ProductController {
     private ProductService service;
     
     @GetMapping
-    public ResponseEntity<Page<ProductDTO>> findAll(@RequestParam(name = "name", defaultValue = "") String name, Pageable pageable) { // Datos paginados (para não acabar carregando tudo de uma vez)
-        Page<ProductDTO> dto = service.findAll(name, pageable);
+    public ResponseEntity<Page<ProductMinDTO>> findAll(@RequestParam(name = "name", defaultValue = "") String name, Pageable pageable) { // Datos paginados (para não acabar carregando tudo de uma vez)
+        Page<ProductMinDTO> dto = service.findAll(name, pageable);
         return ResponseEntity.ok(dto);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<ProductMinDTO> findById(@PathVariable Long id){
-        ProductMinDTO dto = service.findById(id);
+    public ResponseEntity<ProductDTO> findById(@PathVariable Long id){
+        ProductDTO dto = service.findById(id);
         return ResponseEntity.ok(dto);
     }
 
