@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.yandemelo.dscommercePGAdmin.dto.ProductDTO;
+import com.yandemelo.dscommercePGAdmin.dto.ProductMinDTO;
 import com.yandemelo.dscommercePGAdmin.services.ProductService;
 
 import jakarta.validation.Valid;
@@ -36,8 +37,8 @@ public class ProductController {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<ProductDTO> findById(@PathVariable Long id){
-        ProductDTO dto = service.findById(id);
+    public ResponseEntity<ProductMinDTO> findById(@PathVariable Long id){
+        ProductMinDTO dto = service.findById(id);
         return ResponseEntity.ok(dto);
     }
 

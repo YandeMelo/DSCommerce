@@ -1,4 +1,4 @@
-package com.yandemelo.dscommercePGAdmin.entities;
+package com.yandemelo.dscommercePGAdmin.entities.authEntities;
 
 public enum UserRole {
     

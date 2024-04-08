@@ -1,4 +1,4 @@
-package com.yandemelo.dscommercePGAdmin.services;
+package com.yandemelo.dscommercePGAdmin.services.authServices;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.yandemelo.dscommercePGAdmin.repositories.UserRepository;
+import com.yandemelo.dscommercePGAdmin.repositories.authRepositories.UserRepository;
 
 @Service
 public class AuthorizationService implements UserDetailsService {

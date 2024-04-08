@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.yandemelo.dscommercePGAdmin.dto.ProductDTO;
+import com.yandemelo.dscommercePGAdmin.dto.ProductMinDTO;
 import com.yandemelo.dscommercePGAdmin.entities.Product;
 import com.yandemelo.dscommercePGAdmin.repositories.ProductRepository;
 import com.yandemelo.dscommercePGAdmin.services.exceptions.DatabaseException;
@@ -24,9 +25,9 @@ public class ProductService {
 
     //GET
     @Transactional(readOnly = true)
-    public ProductDTO findById(Long id) {
+    public ProductMinDTO findById(Long id) {
         Product product = repository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Recurso não encontrado."));
-        return new ProductDTO(product);
+        return new ProductMinDTO(product);
     }
 
     //GET
