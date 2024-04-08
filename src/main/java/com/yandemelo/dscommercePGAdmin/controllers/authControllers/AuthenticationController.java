@@ -1,4 +1,4 @@
-package com.yandemelo.dscommercePGAdmin.controllers;
+package com.yandemelo.dscommercePGAdmin.controllers.authControllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.yandemelo.dscommercePGAdmin.config.TokenService;
-import com.yandemelo.dscommercePGAdmin.dto.AuthenticationDTO;
-import com.yandemelo.dscommercePGAdmin.dto.LoginResponseDTO;
-import com.yandemelo.dscommercePGAdmin.dto.RegisterDTO;
-import com.yandemelo.dscommercePGAdmin.entities.User;
-import com.yandemelo.dscommercePGAdmin.repositories.UserRepository;
+import com.yandemelo.dscommercePGAdmin.dto.authDTO.AuthenticationDTO;
+import com.yandemelo.dscommercePGAdmin.dto.authDTO.LoginResponseDTO;
+import com.yandemelo.dscommercePGAdmin.dto.authDTO.RegisterDTO;
+import com.yandemelo.dscommercePGAdmin.entities.authEntities.User;
+import com.yandemelo.dscommercePGAdmin.repositories.authRepositories.UserRepository;
 
 import jakarta.validation.Valid;
 

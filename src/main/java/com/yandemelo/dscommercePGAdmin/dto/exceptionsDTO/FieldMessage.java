@@ -1,4 +1,4 @@
-package com.yandemelo.dscommercePGAdmin.dto;
+package com.yandemelo.dscommercePGAdmin.dto.exceptionsDTO;
 
 public class FieldMessage {
     

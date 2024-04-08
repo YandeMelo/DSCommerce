@@ -1,4 +1,4 @@
-package com.yandemelo.dscommercePGAdmin.entities;
+package com.yandemelo.dscommercePGAdmin.entities.authEntities;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -8,6 +8,8 @@ import java.util.List;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import com.yandemelo.dscommercePGAdmin.entities.Order;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

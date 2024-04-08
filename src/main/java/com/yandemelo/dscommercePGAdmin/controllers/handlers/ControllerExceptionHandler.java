@@ -9,8 +9,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.yandemelo.dscommercePGAdmin.dto.CustomError;
-import com.yandemelo.dscommercePGAdmin.dto.ValidationError;
+import com.yandemelo.dscommercePGAdmin.dto.exceptionsDTO.CustomError;
+import com.yandemelo.dscommercePGAdmin.dto.exceptionsDTO.ValidationError;
 import com.yandemelo.dscommercePGAdmin.services.exceptions.DatabaseException;
 import com.yandemelo.dscommercePGAdmin.services.exceptions.ResourceNotFoundException;
 
