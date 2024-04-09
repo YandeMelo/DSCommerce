@@ -8,6 +8,8 @@ import com.yandemelo.dscommercePGAdmin.entities.Order;
 import com.yandemelo.dscommercePGAdmin.entities.OrderItem;
 import com.yandemelo.dscommercePGAdmin.entities.OrderStatus;
 
+import jakarta.validation.constraints.NotEmpty;
+
 public class OrderDTO {
     
     private Long id;
@@ -15,6 +17,8 @@ public class OrderDTO {
     private OrderStatus status;
     private UserMinDTO client;
     private PaymentDTO payment;
+
+    @NotEmpty(message = "Must have at least one item")
     private List<OrderItemDTO> items = new ArrayList<>();
 
 

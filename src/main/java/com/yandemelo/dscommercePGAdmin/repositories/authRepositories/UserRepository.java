@@ -8,5 +8,7 @@ import com.yandemelo.dscommercePGAdmin.entities.authEntities.User;
 public interface UserRepository extends JpaRepository <User, Long>{
         
     UserDetails findByEmail(String email);
+    
+    User findUserByEmail(String email);
         
 }
