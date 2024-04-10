@@ -114,6 +114,11 @@ public class User implements UserDetails{
         return this.orders;
     }
 
+    public boolean hasRole(String role) {
+        Collection<? extends GrantedAuthority> authorities = this.getAuthorities();
+        return authorities.contains(new SimpleGrantedAuthority("ROLE_" + role.toUpperCase()));
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -143,8 +148,6 @@ public class User implements UserDetails{
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if (this.role == UserRole.ADMIN) {
             return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_OPERATOR"), new SimpleGrantedAuthority("ROLE_CLIENT"));
-        } else if (this.role == UserRole.OPERATOR) {
-            return List.of(new SimpleGrantedAuthority("ROLE_OPERATOR"));
         }else{
             return List.of(new SimpleGrantedAuthority("ROLE_CLIENT"));
         }

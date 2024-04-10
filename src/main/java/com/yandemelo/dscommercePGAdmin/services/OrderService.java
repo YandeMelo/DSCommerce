@@ -16,6 +16,7 @@ import com.yandemelo.dscommercePGAdmin.entities.authEntities.User;
 import com.yandemelo.dscommercePGAdmin.repositories.OrderItemRepository;
 import com.yandemelo.dscommercePGAdmin.repositories.OrderRepository;
 import com.yandemelo.dscommercePGAdmin.repositories.ProductRepository;
+import com.yandemelo.dscommercePGAdmin.services.authServices.AuthService;
 import com.yandemelo.dscommercePGAdmin.services.authServices.AuthorizationService;
 import com.yandemelo.dscommercePGAdmin.services.exceptions.ResourceNotFoundException;
 
@@ -30,11 +31,14 @@ public class OrderService {
     private OrderItemRepository orderItemRepository;
     @Autowired
     private AuthorizationService service;
+    @Autowired
+    private AuthService authService;
 
     //GET
     @Transactional(readOnly = true)
     public OrderDTO findById(Long id) {
         Order order = orderRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Recurso não encontrado."));
+        authService.validateSelfOrAdmin(order.getClient().getId());
         return new OrderDTO(order);
     }
 

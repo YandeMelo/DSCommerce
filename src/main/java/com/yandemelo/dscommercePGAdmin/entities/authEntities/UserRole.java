@@ -3,7 +3,6 @@ package com.yandemelo.dscommercePGAdmin.entities.authEntities;
 public enum UserRole {
     
     ADMIN("admin"),
-    OPERATOR("operator"),
     CLIENT("client");
 
     private String role;
