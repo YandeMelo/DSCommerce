@@ -6,7 +6,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.yandemelo.dscommercePGAdmin.dto.UserDTO;
 import com.yandemelo.dscommercePGAdmin.entities.authEntities.User;
 import com.yandemelo.dscommercePGAdmin.repositories.authRepositories.UserRepository;
 
@@ -29,4 +31,10 @@ public class AuthorizationService implements UserDetailsService {
             throw new UsernameNotFoundException("User not found");
         }
     }
+
+    @Transactional(readOnly = true)
+	public UserDTO getMe() {
+		User entity = authenticated();
+		return new UserDTO(entity);
+	}
 }
