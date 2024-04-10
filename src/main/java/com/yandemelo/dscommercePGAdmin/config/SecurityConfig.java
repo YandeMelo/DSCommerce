@@ -30,6 +30,7 @@ public class SecurityConfig {
         .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
         .requestMatchers(HttpMethod.GET, "/products").permitAll()
         .requestMatchers(HttpMethod.GET, "/products/{id}").permitAll()
+        .requestMatchers(HttpMethod.GET, "/categories").permitAll()
         .requestMatchers(HttpMethod.GET, "/orders/{id}").hasAnyRole("ADMIN", "CLIENT")
         .requestMatchers(HttpMethod.PUT, "/products/{id}").hasAnyRole("ADMIN")
         .requestMatchers(HttpMethod.POST, "/products").hasRole("ADMIN")
