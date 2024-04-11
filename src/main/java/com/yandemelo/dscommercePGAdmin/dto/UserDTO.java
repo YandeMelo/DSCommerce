@@ -15,6 +15,8 @@ public class UserDTO {
     private String email;
     private String phone;
     private LocalDate birthDate;
+
+	
     private List<String> roles = new ArrayList<>();
     
 	public UserDTO(Long id, String name, String email, String phone, LocalDate birthDate) {
