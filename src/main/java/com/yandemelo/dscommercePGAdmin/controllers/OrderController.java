@@ -32,7 +32,8 @@ public class OrderController {
     @Operation(summary = "Buscar pedido pelo ID")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Status 200 OK"),
-        @ApiResponse(responseCode = "404", description = "Status 404 Not Found")
+        @ApiResponse(responseCode = "404", description = "Status 404 Not Found"),
+        @ApiResponse(responseCode = "403", description = "Status 403 Forbidden")
     })
     @GetMapping(value = "/{id}")
     public ResponseEntity<OrderDTO> findById(@PathVariable Long id){

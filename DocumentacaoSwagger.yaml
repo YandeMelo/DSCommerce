@@ -1,0 +1,575 @@
+openapi: 3.0.1
+info:
+  title: DSCommerce
+  description: API desenvolvida para um sistema de comércio online
+  version: "1.0"
+servers:
+- url: http://localhost:8080
+  description: Generated server url
+
+tags:
+- name: Pedidos
+  description: Gerenciar Pedidos
+- name: Usuários
+  description: Administrar usuários
+- name: Categorias
+  description: Verificar categorias
+- name: Produtos
+  description: Gerenciar Produtos
+- name: Autenticação
+  description: Autenticação de usuários
+paths:
+  /products/{id}:
+    get:
+      tags:
+      - Produtos
+      summary: Buscar produto pelo ID
+      operationId: findById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: Status 200 OK
+          content:
+            '*/*':
+              schema:
+                example:
+                  id: 5,
+                  name: "Computador Dell"
+                  description: "Computador Dell i5 16gb RGB RTX2060Ti"
+                  price: 100.99,
+                  imgUrl: "https://raw.githubusercontent.com/devsuperior/dscatalog-resources/master/backend/img/5-big.jpg"
+                  categories: [{
+                          id: 3,
+                          name: "Computadores"
+                      }
+                  ]
+        "404":
+          description: Status 404 Not Found
+          content:
+            '*/*':
+              schema:
+                example:
+                  timestamp: "2024-04-11T06:28:41.929306100Z"
+                  status: 404
+                  error: "Recurso não encontrado."
+                  path: "/products/50000"
+    put:
+      tags:
+      - Produtos
+      summary: Atualizar um produto
+      operationId: update
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+        required: true
+      responses:
+        "403":
+          description: Status 403 Forbidden
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Product'
+        "200":
+          description: Status 200 OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Product'
+        "401":
+          description: Status 401 Unauthorized
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Product'
+    delete:
+      tags:
+      - Produtos
+      summary: Excluir um produto
+      operationId: delete
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "403":
+          description: Status 403 Forbidden
+        "401":
+          description: Status 401 Unauthorized
+        "204":
+          description: Status 204 No Content
+        "404":
+          description: Status 404 Not Found
+  /products:
+    get:
+      tags:
+      - Produtos
+      summary: Buscar todos os produtos
+      operationId: findAll
+      parameters:
+      - name: name
+        in: query
+        required: false
+        schema:
+          type: string
+          default: ""
+      - name: pageable
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/Pageable'
+      responses:
+        "200":
+          description: Status 200 OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PageProductMinDTO'
+    post:
+      tags:
+      - Produtos
+      summary: Inserir um novo produto
+      operationId: insert
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+        required: true
+      responses:
+        "201":
+          description: Status 201 Created
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Product'
+        "403":
+          description: Status 403 Forbidden
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Product'
+        "401":
+          description: Status 401 Unauthorized
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Product'
+  /orders:
+    post:
+      tags:
+      - Pedidos
+      summary: Adicionar um novo pedido
+      operationId: insert_1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Order'
+        required: true
+      responses:
+        "201":
+          description: Status 201 Created
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Order'
+        "403":
+          description: Status 403 Forbidden
+          content:
+            '*/*':
+              schema:
+                example: 
+                  - productId: 9
+                    quantity: 
+                  - productId: 
+                    quantity: 5
+        "401":
+          description: Status 401 Unauthorized
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Order'
+  /auth/register:
+    post:
+      tags:
+      - Autenticação
+      summary: Registrar usuário
+      operationId: register
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Register'
+        required: true
+      responses:
+        "201":
+          description: Status 201 Created
+          content:
+            '*/*':
+              schema:
+                type: object
+        "403":
+          description: Status 403 Forbidden
+          content:
+            '*/*':
+              schema:
+                type: object
+  /auth/login:
+    post:
+      tags:
+      - Autenticação
+      summary: Fazer login de usuário
+      operationId: login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Login'
+        required: true
+      responses:
+        "403":
+          description: Status 403 Forbidden
+          content:
+            '*/*':
+              schema:
+                type: object
+        "200":
+          description: Status 200 OK
+          content:
+            '*/*':
+              schema:
+                type: object
+        "404":
+          description: Status 404 Not Found
+          content:
+            '*/*':
+              schema:
+                type: object
+  /users/me:
+    get:
+      tags:
+      - Usuários
+      summary: Buscar usuário logado
+      operationId: getMe
+      responses:
+        "200":
+          description: Status 200 OK
+          content:
+            '*/*':
+              schema:
+                example:
+                  id": 2,
+                  name: "Yan Melo"
+                  email: "yan@gmail.com"
+                  phone: "977777777"
+                  birthDate: "1987-12-13"
+                  roles: [
+                      ROLE_ADMIN,
+                      ROLE_CLIENT
+                  ]
+        "403":
+          description: Status 403 Forbidden
+          content:
+            '*/*':
+              schema:
+                example:
+  /orders/{id}:
+    get:
+      tags:
+      - Pedidos
+      summary: Buscar pedido pelo ID
+      operationId: findById_1
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: Status 200 OK
+          content:
+            '*/*':
+              schema:
+                example:
+                    id: 1
+                    moment: "2022-07-25T10:00:00Z"
+                    status: "PAID"
+                    client": {
+                          id: 1,
+                          name: "Yan Melo"
+                    }
+                    payment: {
+                        id: 1,
+                        moment: "2022-07-25T12:00:00Z"
+                      }
+                    items: [{
+                            productId: 1,
+                            name: "Meu Novo Produto",
+                            price: 90.5,
+                            quantity: 2,
+                            imgUrl: "https://raw.githubusercontent.com/devsuperior/dscatalog-resources/master/backend/img/19-big.jpg",
+                            subTotal: 181.0
+                          },{
+                            productId: 3,
+                            name: "Macbook Pro",
+                            price: 1250.0,
+                            quantity: 1,
+                            imgUrl: "https://raw.githubusercontent.com/devsuperior/dscatalog-resources/master/backend/img/3-big.jpg",
+                            subTotal: 1250.0
+                          }
+                      ]
+                    total: 1431.0
+        "403":
+          description: Status 403 Forbidden
+          content:
+            '*/*':
+              schema:
+               example: 
+        "404":
+          description: Status 404 Not Found
+          content:
+            '*/*':
+              schema:
+                example:
+                  timestamp: "2024-04-11T06:18:58.300611Z"
+                  status: 404
+                  error: "Recurso não encontrado."
+                  path: "/orders/65"
+  /categories:
+    get:
+      tags:
+      - Categorias
+      summary: Buscar todas as categorias
+      operationId: findAll_1
+      responses:
+        "200":
+          description: Status 200 OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  example: [{
+                        id: 1,
+                        name: "Livros"
+                      },{
+                        id: 2,
+                        name: "Eletrônicos"
+                      },{
+                        id: 3,
+                        name: "Computadores"
+                      }]
+components:
+  schemas:
+    Category:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+    Product:
+      required:
+      - categories
+      - description
+      - name
+      - price
+      type: object
+      properties:
+        name:
+          maxLength: 80
+          minLength: 3
+          type: string
+        description:
+          maxLength: 2147483647
+          minLength: 10
+          type: string
+        price:
+          type: number
+          format: double
+        imgUrl:
+          type: string
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/Category'
+        
+    Order:
+      required:
+      - items
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderItem'
+    OrderItem:
+      type: object
+      properties:
+        productId:
+          type: integer
+          format: int64
+        quantity:
+          type: integer
+          format: int32
+    Payment:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        moment:
+          type: string
+          format: date-time
+    Register:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        birthDate:
+          type: string
+          format: date
+        password:
+          type: string
+        role:
+          type: string
+          enum:
+          - ADMIN
+          - CLIENT
+    Login:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        birthDate:
+          type: string
+          format: date
+        roles:
+          type: array
+          items:
+            type: string
+    Pageable:
+      type: object
+      properties:
+        page:
+          minimum: 0
+          type: integer
+          format: int32
+        size:
+          minimum: 1
+          type: integer
+          format: int32
+        sort:
+          type: array
+          items:
+            type: string
+    PageProductMinDTO:
+      type: object
+      properties:
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+        size:
+          type: integer
+          format: int32
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductMinDTO'
+        number:
+          type: integer
+          format: int32
+        sort:
+          $ref: '#/components/schemas/SortObject'
+        first:
+          type: boolean
+        last:
+          type: boolean
+        numberOfElements:
+          type: integer
+          format: int32
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
+        empty:
+          type: boolean
+    PageableObject:
+      type: object
+      properties:
+        offset:
+          type: integer
+          format: int64
+        sort:
+          $ref: '#/components/schemas/SortObject'
+        paged:
+          type: boolean
+        unpaged:
+          type: boolean
+        pageNumber:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+    ProductMinDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        price:
+          type: number
+          format: double
+        imgUrl:
+          type: string
+
+    SortObject:
+      type: object
+      properties:
+        empty:
+          type: boolean
+        unsorted:
+          type: boolean
+        sorted:
+          type: boolean
