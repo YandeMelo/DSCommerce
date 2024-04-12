@@ -2,6 +2,9 @@ package com.yandemelo.dscommercePGAdmin.dto.OrderDTO;
 
 import com.yandemelo.dscommercePGAdmin.entities.OrderItem;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
+@Schema(name = "Order Item")
 public class OrderItemDTO {
     
     private Long productId;
