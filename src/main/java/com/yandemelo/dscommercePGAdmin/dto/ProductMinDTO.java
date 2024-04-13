@@ -2,9 +2,6 @@ package com.yandemelo.dscommercePGAdmin.dto;
 
 import com.yandemelo.dscommercePGAdmin.entities.Product;
 
-import io.swagger.v3.oas.annotations.media.Schema;
-
-@Schema(name = "Product Min")
 public class ProductMinDTO {
     
     private Long id;

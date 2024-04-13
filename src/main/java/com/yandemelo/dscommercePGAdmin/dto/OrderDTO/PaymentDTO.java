@@ -4,9 +4,7 @@ import java.time.Instant;
 
 import com.yandemelo.dscommercePGAdmin.entities.Payment;
 
-import io.swagger.v3.oas.annotations.media.Schema;
 
-@Schema(name = "Payment")
 public class PaymentDTO {
     
     private Long id;

@@ -18,15 +18,10 @@ import com.yandemelo.dscommercePGAdmin.entities.authEntities.User;
 import com.yandemelo.dscommercePGAdmin.repositories.authRepositories.UserRepository;
 import com.yandemelo.dscommercePGAdmin.services.exceptions.ResourceNotFoundException;
 
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/auth")
-@Tag(name = "Autenticação", description = "Autenticação de usuários")
 public class AuthenticationController {
     
     @Autowired
@@ -36,12 +31,6 @@ public class AuthenticationController {
     @Autowired
     private TokenService tokenService;
 
-    @Operation(summary = "Fazer login de usuário")
-    @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "Status 200 OK"),
-        @ApiResponse(responseCode = "403", description = "Status 403 Forbidden"),
-        @ApiResponse(responseCode = "404", description = "Status 404 Not Found")
-    })
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody @Valid AuthenticationDTO data) {
         try {
@@ -54,11 +43,6 @@ public class AuthenticationController {
         }
     }
     
-    @Operation(summary = "Registrar usuário")
-    @ApiResponses(value = {
-        @ApiResponse(responseCode = "201", description = "Status 201 Created"),
-        @ApiResponse(responseCode = "403", description = "Status 403 Forbidden"),
-    })
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody @Valid RegisterDTO data){
         if (this.repository.findByEmail(data.email()) != null) {

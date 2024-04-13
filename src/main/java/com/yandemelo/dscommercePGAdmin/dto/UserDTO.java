@@ -8,9 +8,6 @@ import org.springframework.security.core.GrantedAuthority;
 
 import com.yandemelo.dscommercePGAdmin.entities.authEntities.User;
 
-import io.swagger.v3.oas.annotations.media.Schema;
-
-@Schema(name = "User")
 public class UserDTO {
 
     private Long id;

@@ -8,10 +8,9 @@ import com.yandemelo.dscommercePGAdmin.entities.Order;
 import com.yandemelo.dscommercePGAdmin.entities.OrderItem;
 import com.yandemelo.dscommercePGAdmin.entities.OrderStatus;
 
-import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotEmpty;
 
-@Schema(name = "Order")
+
 public class OrderDTO {
     
     private Long id;

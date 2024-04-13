@@ -2,9 +2,7 @@ package com.yandemelo.dscommercePGAdmin.dto;
 
 import com.yandemelo.dscommercePGAdmin.entities.Category;
 
-import io.swagger.v3.oas.annotations.media.Schema;
 
-@Schema(name = "Category")
 public class CategoryDTO {
     
     private Long id;
