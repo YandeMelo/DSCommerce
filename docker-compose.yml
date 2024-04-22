@@ -1,0 +1,25 @@
+version: '3.9'
+
+services:
+  dscommerce-app:
+    container_name: dscommerce-app
+    image: yanmelo/dscommerce-app
+    build: .
+    ports:
+      - 8080:8080
+    environment:
+      - DATABASE_URL=jdbc:postgresql://dscommerce-db:5432/dscommerce
+      - DATABASE_USERNAME=postgres
+      - DATABASE_PASSWORD=postgres
+    depends_on: 
+      - dscommerce-db
+
+  dscommerce-db:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./postgres-data:/var/lib/postgresql/data
